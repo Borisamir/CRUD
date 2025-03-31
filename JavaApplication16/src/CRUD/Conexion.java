@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package javaapplication16;
+package CRUD;
 
 import java.sql.*;
 /**
@@ -11,7 +11,7 @@ import java.sql.*;
  */
 public class Conexion {
     public Connection conectar(){
-        String url="jdbc:mysql://localhost:3308/mysql?zeroDateTimeBehavior=CONVERT_TO_NULL";
+        String url="jdbc:mysql://localhost:3308/senati?zeroDateTimeBehavior=CONVERT_TO_NULL";
         String user="root";
         String password="1234";
         Connection cn=null;
