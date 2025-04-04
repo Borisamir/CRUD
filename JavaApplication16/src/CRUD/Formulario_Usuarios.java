@@ -12,6 +12,8 @@ import javax.swing.table.*;
  */
 public class Formulario_Usuarios extends javax.swing.JFrame {
     DefaultTableModel tabla=new DefaultTableModel();
+    Agregar_usuario ag_u=new Agregar_usuario();
+    Editar_usuario ed_u=new Editar_usuario();
 
     /**
      * Creates new form Formulario_Usuarios
@@ -19,16 +21,18 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
     public Formulario_Usuarios() {
         initComponents();
         cargarUsuarios();
-        Tabla.setModel(tabla);
+        
        
     }
     
     public void cargarUsuarios(){
         System.out.print("a");
         Conexion cn=new Conexion();
+        Tabla.setModel(tabla);
         tabla.addColumn("id");
         tabla.addColumn("Nombre");
         tabla.addColumn("Apellido");
+       
         
         
         
@@ -42,7 +46,7 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
                 System.out.println("Se cargaron los datos");
             }
             while(rs.next()){
-                String[] row=new String[3];
+                Object[] row=new Object[3];
                 row[0]=Integer.toString(rs.getInt("id"));
                 row[1]=rs.getString("Nombre");
                 row[2]=rs.getString("Apellido");
@@ -57,6 +61,8 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
         
         
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,11 +75,12 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         Agregar_boton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Editar_usuario = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         Salir_boton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        Actualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,7 +93,12 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Editar");
+        Editar_usuario.setText("Editar");
+        Editar_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Editar_usuarioActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Eliminar");
 
@@ -110,6 +122,13 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Tabla);
 
+        Actualizar.setText("Actualizar");
+        Actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,13 +138,18 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(Agregar_boton)
-                                .addComponent(jButton2)
-                                .addComponent(jButton3))
-                            .addComponent(Salir_boton)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(Agregar_boton)
+                                        .addComponent(Editar_usuario)
+                                        .addComponent(jButton3))
+                                    .addComponent(Salir_boton)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(Actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -144,10 +168,12 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
                         .addGap(74, 74, 74)
                         .addComponent(Agregar_boton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(Editar_usuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Actualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Salir_boton)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -157,19 +183,32 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
 
     private void Agregar_botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar_botonActionPerformed
         // TODO add your handling code here:
-        Object[] ag=new Object[3];
-        ag[0]="3";
-        ag[1]="Mateo";
-        ag[2]="Ancasi";
-        
-        tabla.addRow(ag);
-        
+        ag_u.setVisible(true);
+ 
     }//GEN-LAST:event_Agregar_botonActionPerformed
 
     private void Salir_botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salir_botonActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_Salir_botonActionPerformed
+
+    private void Editar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar_usuarioActionPerformed
+        // TODO add your handling code here:
+        ed_u.setVisible(true);
+        
+        
+    }//GEN-LAST:event_Editar_usuarioActionPerformed
+
+    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
+        // TODO add your handling code here:
+        for(int i=tabla.getRowCount() - 1  ; i >=0;i--){
+            tabla.removeRow(i);
+        }
+        int numero=tabla.getColumnCount();
+        tabla.setColumnCount(tabla.getColumnCount()- numero);
+        
+        cargarUsuarios();
+    }//GEN-LAST:event_ActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,10 +246,11 @@ public class Formulario_Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Actualizar;
     private javax.swing.JButton Agregar_boton;
+    private javax.swing.JButton Editar_usuario;
     private javax.swing.JButton Salir_boton;
     private javax.swing.JTable Tabla;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
